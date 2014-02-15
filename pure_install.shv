@@ -24,7 +24,7 @@ mv ./pure_menu.xml /home/alejandro/
 mv ./pure_rc.xml /home/alejandro/
 mv ./vim_conf.zip /home/alejandro/
 mkdir /usr/share/images/custom-greeter
-mv ./pure_greeter.jpg /usr/share/images/custom-greeter/
+mv ./blue_eyes_greeter.jpg /usr/share/images/custom-greeter/
 
 mkdir -p /home/alejandro/Pictures/Wallpapers
 mv ./pure_wallpaper.jpg /home/alejandro/Pictures/Wallpapers
@@ -44,7 +44,7 @@ aptitude install -y lightdm
 #/usr/lib/i386-linux-gnu/lightdm/lightdm-set-defaults -s openbox
 sed -i 's/greeter-hide-users/c\greeter-hide-users=true' /etc/lightdm/lightdm.conf
 #Set greeter wallpaper
-sed -i 's/background/c\background=/usr/share/images/custom-greeter/pure_greeter.jpg' /etc/lightdm/lightdm-gtk-greeter.conf
+sed -i 's/background/c\background=/usr/share/images/custom-greeter/blue_eyes_greeter.jpg' /etc/lightdm/lightdm-gtk-greeter.conf
 
 sed -i 's/user-session/c\user-session=openbox' /etc/lightdm/lightdm.conf
 
@@ -52,8 +52,7 @@ sed -i 's/user-session/c\user-session=openbox' /etc/lightdm/lightdm.conf
 aptitude install -y openjdk-7-jdk
 
 #Setting up general utilities
-aptitude install -y synapse vim git maven lxappearance thunar thunar-volman tint2 conky-all lxinput lxrandr arandr python-statgrab ttf-droid curl lm-sensors hddtemp file-roller zip unzip flashplugin-nonfree feh gthumb imagemagick evince vlc banshee leafpad brasero flashplugin-nonfree-extrasound calibre libreoffice baobab gnome-screenshot gnome-disk-utility gnome-themes-extras 
-
+aptitude install -y synapse vim git maven lxappearance thunar thunar-volman tint2 conky-all lxinput lxrandr arandr python-statgrab ttf-droid curl lm-sensors hddtemp file-roller zip unzip flashplugin-nonfree feh gthumb imagemagick evince vlc banshee leafpad brasero flashplugin-nonfree-extrasound calibre libreoffice baobab gnome-screenshot
 aptitude update
 
 aptitude install -y iceweasel icedove
