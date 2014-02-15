@@ -42,11 +42,11 @@ aptitude update
 #Install session manager
 aptitude install -y lightdm
 #/usr/lib/i386-linux-gnu/lightdm/lightdm-set-defaults -s openbox
-sed -i 's/greeter-hide-users/c\greeter-hide-users=true' /etc/lightdm/lightdm.conf
+sed -i '/greeter-hide-users/c\greeter-hide-users=true' /etc/lightdm/lightdm.conf
 #Set greeter wallpaper
-sed -i 's/background/c\background=/usr/share/images/custom-greeter/pure_greeter.jpg' /etc/lightdm/lightdm-gtk-greeter.conf
+sed -i '/background/c\background=/usr/share/images/custom-greeter/pure_greeter.jpg' /etc/lightdm/lightdm-gtk-greeter.conf
 
-sed -i 's/user-session/c\user-session=openbox' /etc/lightdm/lightdm.conf
+sed -i '/user-session/c\user-session=openbox' /etc/lightdm/lightdm.conf
 
 #Java install 
 aptitude install -y openjdk-7-jdk
