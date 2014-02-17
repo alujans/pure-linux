@@ -52,11 +52,19 @@ sed -i '/user-session/c\user-session=openbox' /etc/lightdm/lightdm.conf
 aptitude install -y openjdk-7-jdk
 
 #Setting up general utilities
-aptitude install -y synapse vim git maven lxappearance thunar thunar-volman tint2 conky-all lxinput lxrandr arandr python-statgrab ttf-droid curl lm-sensors hddtemp file-roller zip unzip flashplugin-nonfree feh gthumb imagemagick evince vlc banshee leafpad brasero flashplugin-nonfree-extrasound calibre libreoffice baobab gnome-screenshot gnome-disk-utility gnome-themes-extras 
+aptitude install -y synapse vim git maven lxappearance thunar thunar-volman tint2 conky-all lxinput lxrandr arandr python-statgrab ttf-droid curl lm-sensors hddtemp file-roller zip unzip feh gthumb imagemagick evince vlc banshee leafpad brasero calibre libreoffice baobab gnome-screenshot gnome-disk-utility gnome-themes-extras 
+
+#Install flashplugin (nonfree)
+#aptitude install -y flashplugin-nonfree flashplugin-nonfree-extrasound
+
+#Install Gnash flash support
+aptitude install -y gnash browser-plugin-gnash 
 
 aptitude update
 
+#Install Web browser & Mail client
 aptitude install -y iceweasel icedove
+
 aptitude update
 
 #Changing greeter UI
@@ -65,7 +73,6 @@ mv ./pure_greeter.ui /usr/share/lightdm-gtk-greeter/greeter.ui
 
 #Installing compton
 aptitude install -y libxcomposite-dev libxdamage-dev libxrender-dev libxrandr-dev libxinerama-dev libconfig-dev libdbus-1-dev libgl1-mesa-dev libdrm-dev libpcre3-dev libglu-dev x11proto-gl-dev libx11-dev libxfixes-dev libxfixes3 libxext-dev libxext6 asciidoc
-
 cd /tmp
 git clone https://github.com/chjj/compton.git
 cd compton
@@ -93,12 +100,13 @@ make
 make install
 cd ..
 
-#Creating filestructure
+#Creating filestructure for user config
 su alejandro -c '/home/alejandro/pure_conf.sh' -l 
 
+#Cleaning files
 rm -f install.tar.gz /home/alejandro/pure_conf.sh /home/alejandro/pure_menu.xml /home/alejandro/pure_rc.xml 
 
-#OBMENU
+#Installing obmenu
 aptitude update
 aptitude install -y obmenu
 update-mime-database /usr/share/mime
