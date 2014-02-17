@@ -44,7 +44,7 @@ aptitude install -y lightdm
 #/usr/lib/i386-linux-gnu/lightdm/lightdm-set-defaults -s openbox
 sed -i '/greeter-hide-users/c\greeter-hide-users=true' /etc/lightdm/lightdm.conf
 #Set greeter wallpaper
-sed -i '/background/c\background=/usr/share/images/custom-greeter/pure_greeter.jpg' /etc/lightdm/lightdm-gtk-greeter.conf
+sed -i '/^background/c\background=/usr/share/images/custom-greeter/pure_greeter.jpg' /etc/lightdm/lightdm-gtk-greeter.conf
 
 sed -i '/user-session/c\user-session=openbox' /etc/lightdm/lightdm.conf
 
@@ -58,6 +58,10 @@ aptitude update
 
 aptitude install -y iceweasel icedove
 aptitude update
+
+#Changing greeter UI
+mv ./pure_greeter.ui /usr/share/lightdm-gtk-greeter/greeter.ui
+
 
 #Installing compton
 aptitude install -y libxcomposite-dev libxdamage-dev libxrender-dev libxrandr-dev libxinerama-dev libconfig-dev libdbus-1-dev libgl1-mesa-dev libdrm-dev libpcre3-dev libglu-dev x11proto-gl-dev libx11-dev libxfixes-dev libxfixes3 libxext-dev libxext6 asciidoc
