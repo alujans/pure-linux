@@ -23,7 +23,7 @@ mv ./pure_conf.sh /home/alejandro/
 mv ./pure_menu.xml /home/alejandro/
 mv ./pure_rc.xml /home/alejandro/
 mv ./vim_conf.zip /home/alejandro/
-mkdir /usr/share/images/custom-greeter
+mkdir -p /usr/share/images/custom-greeter
 mv ./pure_greeter.jpg /usr/share/images/custom-greeter/
 
 mkdir -p /home/alejandro/Pictures/Wallpapers
