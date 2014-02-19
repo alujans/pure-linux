@@ -1,7 +1,9 @@
 mkdir -p ~/.config/openbox
 cp -R /etc/xdg/openbox/* ~/.config/openbox
 
-conky-colors --cpu=4 --debian --clock=modern --theme=orange --calendar --banshee=default --cputemp --battery --updates --hd=default --unit=C --network --swap
+conky-colors --cpu=4 --debian --clock=modern --theme=blue --calendar --banshee=default --cputemp --battery --updates --hd=default --unit=C --network --swap
+
+sed -i 's/^own_window_type/c\own_window_type desktop' ~/.conkycolors/conkyrc
 
 #echo 'xcompmgr_openbox --startstop &' >> ~/.config/openbox/autostart
 echo 'eval `cat $HOME/.fehbg` &' >> ~/.config/openbox/autostart
