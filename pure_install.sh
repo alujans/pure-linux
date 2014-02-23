@@ -88,7 +88,7 @@ cd ..
 if [[ -n "$username" ]]; then
 
     usermod -aG sudo $username
-    echo -e '$username\tALL=(root)\tNOPASSWD:\t/sbin/reboot, /sbin/shutdown, /sbin/halt, /sbin/restart' >> /etc/sudoers
+    echo -e "$username\tALL=(root)\tNOPASSWD:\t/sbin/reboot, /sbin/shutdown, /sbin/halt, /sbin/restart\n" >> /etc/sudoers
     mv ./pure_conf.sh /home/$username/
     mv ./pure_menu.xml /home/$username/
     mv ./pure_rc.xml /home/$username/
