@@ -102,10 +102,10 @@ if [[ -n "$username" ]]; then
     chmod 777 /home/$username/vim_conf.zip
 
     #Creating filestructure for user config
-    su $username -c '/home/'$username'/pure_conf.sh' -l 
+    su $username -c '/home/'$username'/pure_conf.sh '$username -l 
 
     #Cleaning files
-    rm -f install.tar.gz /home/$username/pure_conf.sh /home/$username/pure_menu.xml /home/$username/pure_rc.xml 
+    rm -f /home/$username/pure_conf.sh /home/$username/pure_menu.xml /home/$username/pure_rc.xml 
 
 fi
 
