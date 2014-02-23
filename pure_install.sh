@@ -1,39 +1,24 @@
 
+echo -e "\nThis installer offers two packages to provide flash support: \n\t[1] Gnash (GNU)\n\n\t[2] Adobe Flash Plugin (non-free)\n\n"  
+read -p "Choose an option [1]:" flash_op
+read -p "Do you want to install OpenJDK 7 ( Java 7 support ) ? [Y/n]:" java_op
+read -p "Do you want to configure any user account? [Y/n]:" conf_op
+[ "$conf_op" == "n" ] || [ "$conf_op" == "N" ] || read -p "Enter user account name to configure: " username
+
+
 aptitude update
 aptitude upgrade -y
 aptitude update
 aptitude install -y sudo xfce4-terminal
-usermod -aG sudo alejandro
 
-echo -e 'alejandro\tALL=(root)\tNOPASSWD:\t/sbin/reboot, /sbin/shutdown, /sbin/halt, /sbin/restart' >> /etc/sudoers
-echo 'deb ftp://ftp.debian.org/debian stable main contrib non-free' >> /etc/apt/sources.list
 
 aptitude update
 aptitude install -y build-essential pkg-config checkinstall openbox openbox-themes dmz-cursor-theme xorg gnome-themes gnome-icon-theme gnome-icon-theme-extras python-xdg xdg-utils
 
 aptitude update
 
-#Set up transparency and compositing
-#aptitude install -y xcompmgr x11-apps 
-#mv xcompmgr_openbox /usr/bin/
-#chmod 755 /usr/bin/xcompmgr_openbox
-rm -f xcompmgr_openbox
-
-mv ./pure_conf.sh /home/alejandro/
-mv ./pure_menu.xml /home/alejandro/
-mv ./pure_rc.xml /home/alejandro/
-mv ./vim_conf.zip /home/alejandro/
 mkdir -p /usr/share/images/custom-greeter
 mv ./pure_greeter.jpg /usr/share/images/custom-greeter/
-
-mkdir -p /home/alejandro/Pictures/Wallpapers
-mv ./pure_wallpaper.jpg /home/alejandro/Pictures/Wallpapers
-chown alejandro /home/alejandro/Pictures/Wallpapers/pure_wallpaper.jpg
-
-chmod 777 /home/alejandro/pure_conf.sh
-chmod 777 /home/alejandro/pure_menu.xml
-chmod 777 /home/alejandro/pure_rc.xml
-chmod 777 /home/alejandro/vim_conf.zip
 
 #Setting up sound
 aptitude install -y libasound2 libasound2-doc libasound2-plugins alsa-base alsa-utils alsa-oss pulseaudio pavucontrol paprefs
@@ -41,35 +26,40 @@ aptitude update
 
 #Install session manager
 aptitude install -y lightdm
+
 #/usr/lib/i386-linux-gnu/lightdm/lightdm-set-defaults -s openbox
 sed -i '/greeter-hide-users/c\greeter-hide-users=true' /etc/lightdm/lightdm.conf
 #Set greeter wallpaper
 sed -i '/^background/c\background=/usr/share/images/custom-greeter/pure_greeter.jpg' /etc/lightdm/lightdm-gtk-greeter.conf
-
 sed -i '/user-session/c\user-session=openbox' /etc/lightdm/lightdm.conf
 
 #Java install 
-aptitude install -y openjdk-7-jdk
+[ "$java_op" == "n" ] || [ "$java_op" == "N" ] || aptitude install -y openjdk-7-jdk
 
 #Setting up general utilities
 aptitude install -y synapse vim git maven lxappearance thunar thunar-volman tint2 conky-all lxinput lxrandr arandr python-statgrab ttf-droid curl lm-sensors hddtemp file-roller zip unzip feh gthumb imagemagick evince vlc banshee leafpad brasero calibre libreoffice baobab gnome-screenshot gnome-disk-utility gnome-themes-extras 
 
-#Install flashplugin (nonfree)
-#aptitude install -y flashplugin-nonfree flashplugin-nonfree-extrasound
+case "$flash_op" in
 
-#Install Gnash flash support
-aptitude install -y gnash browser-plugin-gnash 
-
-aptitude update
+    2)
+        #Install flashplugin (nonfree)
+        echo 'deb ftp://ftp.debian.org/debian stable main contrib non-free' >> /etc/apt/sources.list
+        aptitude update
+        aptitude install -y flashplugin-nonfree flashplugin-nonfree-extrasound
+        ;;
+    *)
+        #Install Gnash flash support
+        aptitude install -y gnash browser-plugin-gnash 
+        aptitude update
+        ;;
+esac
 
 #Install Web browser & Mail client
 aptitude install -y iceweasel icedove
-
 aptitude update
 
 #Changing greeter UI
 mv ./pure_greeter.ui /usr/share/lightdm-gtk-greeter/greeter.ui
-
 
 #Installing compton
 aptitude install -y libxcomposite-dev libxdamage-dev libxrender-dev libxrandr-dev libxinerama-dev libconfig-dev libdbus-1-dev libgl1-mesa-dev libdrm-dev libpcre3-dev libglu-dev x11proto-gl-dev libx11-dev libxfixes-dev libxfixes3 libxext-dev libxext6 asciidoc
@@ -80,12 +70,6 @@ make
 make docs
 make install
 cd
-
-#Installing spotify
-#echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
-#aptitude update
-#aptitude install -y spotify-client
 
 echo -e "CONFIGURING SENSORS\n"
 sensors-detect
@@ -100,11 +84,31 @@ make
 make install
 cd ..
 
-#Creating filestructure for user config
-su alejandro -c '/home/alejandro/pure_conf.sh' -l 
 
-#Cleaning files
-rm -f install.tar.gz /home/alejandro/pure_conf.sh /home/alejandro/pure_menu.xml /home/alejandro/pure_rc.xml 
+if [[ -n "$username" ]]; then
+
+    usermod -aG sudo $username
+    echo -e '$username\tALL=(root)\tNOPASSWD:\t/sbin/reboot, /sbin/shutdown, /sbin/halt, /sbin/restart' >> /etc/sudoers
+    mv ./pure_conf.sh /home/$username/
+    mv ./pure_menu.xml /home/$username/
+    mv ./pure_rc.xml /home/$username/
+    mv ./vim_conf.zip /home/$username/
+    mkdir -p /home/$username/Pictures/Wallpapers
+    mv ./pure_wallpaper.jpg /home/$username/Pictures/Wallpapers
+    chown $username /home/$username/Pictures/Wallpapers/pure_wallpaper.jpg
+    chmod 777 /home/$username/pure_conf.sh
+    chmod 777 /home/$username/pure_menu.xml
+    chmod 777 /home/$username/pure_rc.xml
+    chmod 777 /home/$username/vim_conf.zip
+
+    #Creating filestructure for user config
+    su $username -c '/home/'$username'/pure_conf.sh' -l 
+
+    #Cleaning files
+    rm -f install.tar.gz /home/$username/pure_conf.sh /home/$username/pure_menu.xml /home/$username/pure_rc.xml 
+
+fi
+
 
 #Installing obmenu
 aptitude update
