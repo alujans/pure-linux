@@ -37,7 +37,7 @@ sed -i '/user-session/c\user-session=openbox' /etc/lightdm/lightdm.conf
 [ "$java_op" == "n" ] || [ "$java_op" == "N" ] || aptitude install -y openjdk-7-jdk
 
 #Setting up general utilities
-aptitude install -y synapse vim git maven lxappearance thunar thunar-volman tint2 conky-all lxinput lxrandr arandr python-statgrab ttf-droid curl lm-sensors hddtemp file-roller zip unzip feh gthumb imagemagick evince vlc banshee leafpad brasero calibre libreoffice baobab gnome-screenshot gnome-disk-utility gnome-themes-extras 
+aptitude install -y synapse vim git maven lxappearance thunar thunar-volman tint2 conky lxinput lxrandr arandr python-statgrab ttf-droid curl lm-sensors hddtemp file-roller zip unzip feh gthumb imagemagick evince vlc banshee leafpad brasero calibre libreoffice baobab gnome-screenshot gnome-disk-utility gnome-themes-extras 
 
 case "$flash_op" in
 
@@ -89,6 +89,7 @@ if [[ -n "$username" ]]; then
 
     usermod -aG sudo $username
     echo -e "$username\tALL=(root)\tNOPASSWD:\t/sbin/reboot, /sbin/shutdown, /sbin/halt, /sbin/restart\n" >> /etc/sudoers
+
     mv ./pure_conf.sh /home/$username/
     mv ./pure_menu.xml /home/$username/
     mv ./pure_rc.xml /home/$username/
@@ -106,7 +107,6 @@ if [[ -n "$username" ]]; then
 
     #Cleaning files
     rm -f /home/$username/pure_conf.sh /home/$username/pure_menu.xml /home/$username/pure_rc.xml 
-
 fi
 
 

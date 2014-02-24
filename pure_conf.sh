@@ -1,5 +1,5 @@
 
-username=$1
+username="$1"
 
 mkdir -p ~/.config/openbox
 cp -R /etc/xdg/openbox/* ~/.config/openbox
@@ -33,7 +33,5 @@ tar xvf /home/$username/.themes/1977_themes.tar.gz -C /home/$username/.themes/
 rm -f /home/$username/.themes/1977_themes.tar.gz
 
 wget -O /home/$username/.vimrc https://www.dropbox.com/s/1xpm0ojhz6omp59/.vimrc
-wget -O /home/$username/.bashrc https://www.dropbox.com/s/nrtwa6rd1x4vic6/.bashrc
-
-
+wget -O /home/$username/.bashrc_bak https://www.dropbox.com/s/nrtwa6rd1x4vic6/.bashrc
 
